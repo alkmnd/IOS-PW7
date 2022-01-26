@@ -9,19 +9,25 @@
 /* Begin PBXBuildFile section */
 		09BB4D4127A1881A000C2933 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BB4D4027A1881A000C2933 /* AppDelegate.swift */; };
 		09BB4D4327A1881A000C2933 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BB4D4227A1881A000C2933 /* SceneDelegate.swift */; };
-		09BB4D4527A1881A000C2933 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BB4D4427A1881A000C2933 /* ViewController.swift */; };
+		09BB4D4527A1881A000C2933 /* NavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BB4D4427A1881A000C2933 /* NavViewController.swift */; };
 		09BB4D4A27A1881C000C2933 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09BB4D4927A1881C000C2933 /* Assets.xcassets */; };
 		09BB4D4D27A1881C000C2933 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09BB4D4B27A1881C000C2933 /* LaunchScreen.storyboard */; };
+		09BB4D5927A1893A000C2933 /* CustomButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BB4D5827A1893A000C2933 /* CustomButtonViewModel.swift */; };
+		09BB4D5B27A1894D000C2933 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BB4D5A27A1894D000C2933 /* CustomButton.swift */; };
+		09BB4D5D27A189F2000C2933 /* UIViewPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BB4D5C27A189F2000C2933 /* UIViewPin.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		09BB4D3D27A1881A000C2933 /* nabelova_1PW7.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = nabelova_1PW7.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09BB4D4027A1881A000C2933 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		09BB4D4227A1881A000C2933 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		09BB4D4427A1881A000C2933 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		09BB4D4427A1881A000C2933 /* NavViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavViewController.swift; sourceTree = "<group>"; };
 		09BB4D4927A1881C000C2933 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		09BB4D4C27A1881C000C2933 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		09BB4D4E27A1881C000C2933 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		09BB4D5827A1893A000C2933 /* CustomButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonViewModel.swift; sourceTree = "<group>"; };
+		09BB4D5A27A1894D000C2933 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		09BB4D5C27A189F2000C2933 /* UIViewPin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewPin.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,11 +60,14 @@
 		09BB4D3F27A1881A000C2933 /* nabelova_1PW7 */ = {
 			isa = PBXGroup;
 			children = (
+				09BB4D5727A18922000C2933 /* Views */,
+				09BB4D5627A1891C000C2933 /* Models */,
+				09BB4D5527A18907000C2933 /* Controllers */,
 				09BB4D5427A1885C000C2933 /* Delegates */,
-				09BB4D4427A1881A000C2933 /* ViewController.swift */,
 				09BB4D4927A1881C000C2933 /* Assets.xcassets */,
 				09BB4D4B27A1881C000C2933 /* LaunchScreen.storyboard */,
 				09BB4D4E27A1881C000C2933 /* Info.plist */,
+				09BB4D5C27A189F2000C2933 /* UIViewPin.swift */,
 			);
 			path = nabelova_1PW7;
 			sourceTree = "<group>";
@@ -70,6 +79,30 @@
 				09BB4D4027A1881A000C2933 /* AppDelegate.swift */,
 			);
 			path = Delegates;
+			sourceTree = "<group>";
+		};
+		09BB4D5527A18907000C2933 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				09BB4D4427A1881A000C2933 /* NavViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		09BB4D5627A1891C000C2933 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				09BB4D5827A1893A000C2933 /* CustomButtonViewModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		09BB4D5727A18922000C2933 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				09BB4D5A27A1894D000C2933 /* CustomButton.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,9 +175,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09BB4D4527A1881A000C2933 /* ViewController.swift in Sources */,
+				09BB4D5D27A189F2000C2933 /* UIViewPin.swift in Sources */,
+				09BB4D4527A1881A000C2933 /* NavViewController.swift in Sources */,
 				09BB4D4127A1881A000C2933 /* AppDelegate.swift in Sources */,
+				09BB4D5927A1893A000C2933 /* CustomButtonViewModel.swift in Sources */,
 				09BB4D4327A1881A000C2933 /* SceneDelegate.swift in Sources */,
+				09BB4D5B27A1894D000C2933 /* CustomButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
