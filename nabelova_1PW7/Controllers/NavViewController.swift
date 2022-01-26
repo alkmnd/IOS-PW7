@@ -54,14 +54,16 @@ final class NavViewController: UIViewController {
         button.widthAnchor.constraint(equalToConstant: 160.0).isActive = true
         button.heightAnchor.constraint(equalToConstant: 60.0).isActive = true
         button.layer.cornerRadius = 30
+        button.addTarget(self, action: #selector(goButtonWasPressed), for: .touchUpInside)
         return button
     }()
     
     private let clearButton: CustomButton = {
-        let button = CustomButton(with: CustomButtonViewModel(title: "Clear", backgroundColor: .systemBlue, textColor: .white))
+        let button = CustomButton(with: CustomButtonViewModel(title: "Clear", backgroundColor: UIColor.lightGray, textColor: UIColor.gray))
         button.widthAnchor.constraint(equalToConstant: 160.0).isActive = true
         button.heightAnchor.constraint(equalToConstant: 60.0).isActive = true
         button.layer.cornerRadius = 30
+        button.addTarget(self, action: #selector(clearButtonWasPressed), for: .touchUpInside)
         return button
     }()
 
@@ -128,7 +130,15 @@ final class NavViewController: UIViewController {
         return mapView
     }()
     
-    private func configureUI() {
+    @objc func clearButtonWasPressed(){
+           startLocation.text = ""
+           endLocation.text = ""
+           clearButton.setTitleColor(.gray, for: .disabled)
+           clearButton.backgroundColor = .lightGray
+           clearButton.isEnabled = false
+       }
+       
+    @objc func goButtonWasPressed(){
         
     }
 
@@ -137,7 +147,18 @@ final class NavViewController: UIViewController {
 
 extension NavViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
+           textField.resignFirstResponder()
+           if(textField == endLocation && startLocation.hasText){
+               goButtonWasPressed()
+           }
+           return true
+       }
+       
+       func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+           if (textField.hasText) {
+               clearButton.setTitleColor(.black, for: .normal )
+               clearButton.backgroundColor = .white
+               clearButton.isEnabled = true
+           }
+       }
 }
