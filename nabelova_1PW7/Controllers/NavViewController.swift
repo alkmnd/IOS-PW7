@@ -101,7 +101,14 @@ final class NavViewController: UIViewController {
                 textField.delegate = self
                 textStack.addArrangedSubview(textField)
             }
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+                
+        view.addGestureRecognizer(tap)
     }
+    
+    @objc func dismissKeyboard() {
+           view.endEditing(true)
+       }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
     return .lightContent
