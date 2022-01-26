@@ -9,7 +9,10 @@ import UIKit
 import CoreLocation
 import MapKit
 
-final class NavViewController: UIViewController {
+final class NavViewController: UIViewController, MKMapViewDelegate {
+    
+    var coordinates: [CLLocationCoordinate2D] = []
+    
     
     private let startLocation: UITextField = {
         let control = UITextField()
@@ -106,6 +109,7 @@ final class NavViewController: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
                 
         view.addGestureRecognizer(tap)
+        mapView.delegate = self
     }
     
     @objc func dismissKeyboard() {
@@ -138,11 +142,86 @@ final class NavViewController: UIViewController {
            clearButton.isEnabled = false
        }
        
-    @objc func goButtonWasPressed(){
-        
+
+    private func getCoordinateFrom(address: String, completion: @escaping(_ coordinate: CLLocationCoordinate2D?, _ error: Error?) -> ()){
+                DispatchQueue.global(qos: .background).async {
+                    CLGeocoder().geocodeAddressString(address){
+                        completion($0?.first?.location?.coordinate, $1)
+                }
+            }
+            
     }
 
-
+    @objc func goButtonWasPressed(){
+            guard
+                let first = startLocation.text,
+                let second = endLocation.text,
+                first != second
+            else {
+                return
+            }
+            let group = DispatchGroup()
+            group.enter()
+            getCoordinateFrom(address: first, completion: { [weak self] coords,_ in
+                if let coords = coords{
+                    self?.coordinates.append(coords)
+                }
+                group.leave()
+            })
+            
+            group.enter()
+            getCoordinateFrom(address: second, completion: { [weak self] coords,_ in
+                if let coords = coords{
+                    self?.coordinates.append(coords)
+                }
+                group.leave()
+            })
+            group.notify(queue: .main){
+                DispatchQueue.main.async {
+                    [weak self] in self?.buildPath()
+                }
+            }
+            coordinates = []
+            
+        }
+        
+        private func buildPath(){
+            if (coordinates.count != 2) {
+                return
+            }
+            let sourceCoordinate = coordinates[0]
+            let destinationCoordinate = coordinates[1]
+            let sPlaceMark = MKPlacemark(coordinate: sourceCoordinate)
+            let dPlaceMark = MKPlacemark(coordinate: destinationCoordinate)
+            
+            let sourceItem = MKMapItem(placemark: sPlaceMark)
+            let destinationItem = MKMapItem(placemark: dPlaceMark)
+            
+            
+            let directionRequest = MKDirections.Request();
+            directionRequest.source = sourceItem
+            directionRequest.destination = destinationItem
+            
+            directionRequest.transportType = .automobile
+                    
+            let directions = MKDirections(request: directionRequest)
+            directions.calculate { (response, error) in
+                guard let response = response else {
+                    if let error = error {
+                    }
+                    return
+                }
+                let route = response.routes[0]
+                self.mapView.addOverlay(route.polyline)
+                self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
+            }
+        }
+        func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+            let render = MKPolylineRenderer(overlay: overlay as! MKPolyline)
+            render.strokeColor = .systemBlue
+            render.lineWidth = 5
+            return render
+        }
 }
 
 extension NavViewController: UITextFieldDelegate {
